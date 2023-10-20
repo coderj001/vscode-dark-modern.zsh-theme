@@ -1,4 +1,3 @@
-status=$(git status --porcelain 2>/dev/null)
 # Function to display Git branch and status information.
 git_prompt_info() {
   local branch
@@ -9,6 +8,7 @@ git_prompt_info() {
 
 # Function to display Git repository status.
 git_prompt_status() {
+  # Avoid declaring status as a read-only variable.
   local status
   status=$(git status --porcelain 2>/dev/null)
   if [[ -n $status ]]; then
@@ -33,7 +33,6 @@ virtualenv_prompt_info() {
 }
 
 PROMPT="%1~%{$reset_color%}\$(git_prompt_info)\$(virtualenv_prompt_info)${FG[153]}\$(git_prompt_status) ${FG[153]}ᐅ%{$reset_color%} "
-
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" ${FG[187]}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="${FG[187]})%{$reset_color%}"
