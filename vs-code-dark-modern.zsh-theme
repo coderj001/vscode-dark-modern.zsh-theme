@@ -1,30 +1,3 @@
-# Function to display Git branch and status information.
-git_prompt_info() {
-  local branch
-  if branch=$(git symbolic-ref --short -q HEAD 2>/dev/null); then
-    echo "${ZSH_THEME_GIT_PROMPT_PREFIX}${branch}${ZSH_THEME_GIT_PROMPT_SUFFIX}"
-  fi
-}
-
-# Function to display Git repository status.
-git_prompt_status() {
-  # Avoid declaring status as a read-only variable.
-  local status
-  status=$(git status --porcelain 2>/dev/null)
-  if [[ -n $status ]]; then
-    local added modified deleted renamed unmerged untracked
-    added=$(echo "$status" | grep "^A" | wc -l)
-    modified=$(echo "$status" | grep "^M" | wc -l)
-    deleted=$(echo "$status" | grep "^D" | wc -l)
-    renamed=$(echo "$status" | grep "^R" | wc -l)
-    unmerged=$(echo "$status" | grep "^U" | wc -l)
-    untracked=$(echo "$status" | grep "^??" | wc -l)
-    echo "${ZSH_THEME_GIT_PROMPT_DIRTY}+${added} ${ZSH_THEME_GIT_PROMPT_MODIFIED}~${modified} ${ZSH_THEME_GIT_PROMPT_DELETED}-${deleted} ${ZSH_THEME_GIT_PROMPT_RENAMED}➜${renamed} ${ZSH_THEME_GIT_PROMPT_UNMERGED}═${unmerged} ${ZSH_THEME_GIT_PROMPT_UNTRACKED}✭${untracked}"
-  else
-    echo "${ZSH_THEME_GIT_PROMPT_CLEAN}"
-  fi
-}
-
 # Function to display the virtual environment name.
 virtualenv_prompt_info() {
   if [[ -n $VIRTUAL_ENV ]]; then
