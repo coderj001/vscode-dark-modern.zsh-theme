@@ -1,3 +1,4 @@
+status=$(git status --porcelain 2>/dev/null)
 # Function to display Git branch and status information.
 git_prompt_info() {
   local branch
